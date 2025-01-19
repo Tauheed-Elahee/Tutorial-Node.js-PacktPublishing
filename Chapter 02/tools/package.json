@@ -12,5 +12,9 @@
   "description": "",
   "dependencies": {
     "bootstrap": "^5.3.0"
+  },
+  "devDependencies": {
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.2.2"
   }
 }
