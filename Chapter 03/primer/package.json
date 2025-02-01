@@ -1,0 +1,22 @@
+{
+  "name": "primer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "use_js": "nodemon",
+    "use_ts": "tsc-watch --onSuccess \"node index.js\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "dependencies": {
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.0.0",
+    "nodemon": "^2.0.20",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.2.2"
+  }
+}
