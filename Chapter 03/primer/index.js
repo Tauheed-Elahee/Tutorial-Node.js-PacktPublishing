@@ -1,5 +1,8 @@
 function sum (first, second) {
-    return first + second;
+    if (typeof first == "number" && typeof second == "number") {
+        return first + second;
+    }
+    throw Error("Expected two numbers");
 }
 
 let result = sum(10, 10);
