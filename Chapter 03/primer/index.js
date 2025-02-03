@@ -1,12 +1,9 @@
-function sum (first, second) {
-    if (typeof first == "number" && typeof second == "number") {
-        return first + second;
-    }
-    throw Error("Expected two numbers");
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function sum(first, second) {
+    return first + second;
 }
-
-let result = sum(10, 10);
+let result = sum(10, "10");
 console.log(`Result value: ${result}, Result type: ${typeof result}`);
-
-result = sum(10, "10");
+result = sum(10, 10);
 console.log(`Result value: ${result}, Result type: ${typeof result}`);
