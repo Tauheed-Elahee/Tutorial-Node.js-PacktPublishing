@@ -1,5 +1,9 @@
-function sum(first: number, second: number) {
-    return first + second;
+function sum(first: number, second: number | string) {
+    if (typeof second == "string") {
+        return first + Number.parseInt(second);
+    } else {
+        return first + second;
+    }
 }
 
 let result = sum(10, "10");
