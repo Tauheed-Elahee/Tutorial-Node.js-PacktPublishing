@@ -19,3 +19,6 @@ place = "London";
 console.log("Place: " + place + " Type: " + typeof(place));
 place = null;
 console.log("Place: " + place + " Type: " + typeof(place));
+
+let firstBool = true;
+let secondBool = false;
