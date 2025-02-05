@@ -10,5 +10,12 @@ console.log(`Result value: ${result}, Result type: ${typeof result}`);
 
 
 let condition: boolean = true;
-let person: String = "Bob";
+let person: string = "Bob";
 const age: number = 40;
+
+let place: string | undefined | null;
+console.log("Place Value: " + place + " Type: " + typeof(place));
+place = "London";
+console.log("Place: " + place + " Type: " + typeof(place));
+place = null;
+console.log("Place: " + place + " Type: " + typeof(place));
