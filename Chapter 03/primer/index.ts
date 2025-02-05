@@ -31,3 +31,6 @@ console.log(`Place: ${place} Type${typeof(place)}`);
 let daysInWeek = 7;
 let pi = 3.14;
 let hexValue = 0xFFFF;
+
+let person1 = "Alice";
+let person2: string | undefined = "Bob";
