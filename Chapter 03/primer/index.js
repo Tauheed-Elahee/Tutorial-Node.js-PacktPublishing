@@ -77,3 +77,8 @@ if (count != null && count != undefined) {
 }
 let result2 = count?.toFixed(2);
 console.log(`Result 2: ${result2}`);
+function writeValue(val) {
+    console.log(`Value: ${val ?? "Fallback value"}`);
+}
+writeValue("London");
+writeValue(null);
