@@ -77,10 +77,18 @@ if (count != null && count != undefined) {
 }
 let result2 = count?.toFixed(2);
 console.log(`Result 2: ${result2}`);
-function writeValue(val = "default value", ...extraInfo) {
+function writeValueExtra(val = "default value", ...extraInfo) {
     console.log(`Value: ${val}, Extras: ${extraInfo}`);
 }
-writeValue("London", "Raining", "Cold");
-writeValue("Paris", "Sunny");
-writeValue("New York");
+writeValueExtra("London", "Raining", "Cold");
+writeValueExtra("Paris", "Sunny");
+writeValueExtra("New York");
+writeValueExtra();
+function composeString(val) {
+    return `Compose string: ${val}`;
+}
+function writeValue(val) {
+    console.log(composeString(val ?? "Fallback value"));
+}
+writeValue("London");
 writeValue();
