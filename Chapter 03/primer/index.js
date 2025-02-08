@@ -92,3 +92,10 @@ function writeValue(val) {
 }
 writeValue("London");
 writeValue();
+function getUKCapital() {
+    return "London";
+}
+function writeCity(f) {
+    console.log(`City: ${f()}`);
+}
+writeCity(getUKCapital);
