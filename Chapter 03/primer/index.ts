@@ -86,8 +86,8 @@ if (count != null && count != undefined) {
 let result2: string | undefined = count?.toFixed(2);
 console.log(`Result 2: ${result2}`);
 
-function writeValue(val?: string) {
-  console.log(`Value: ${val ?? "Fallback value"}`);
+function writeValue(val: string = "default value") {
+  console.log(`Value: ${val}`);
 }
 writeValue("London");
 writeValue();
