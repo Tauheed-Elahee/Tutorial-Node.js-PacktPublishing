@@ -99,3 +99,4 @@ function writeCity(f) {
     console.log(`City: ${f()}`);
 }
 writeCity(getUKCapital);
+writeCity(() => "Paris");
