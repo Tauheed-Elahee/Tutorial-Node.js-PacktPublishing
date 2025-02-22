@@ -102,3 +102,7 @@ writeCity(getUKCapital);
 writeCity(() => "Paris");
 let myCity = "Rome";
 writeCity(() => myCity);
+let myArray = [];
+myArray[0] = 100;
+myArray[1] = "Adam";
+myArray[2] = true;
