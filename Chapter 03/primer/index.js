@@ -104,5 +104,5 @@ let myCity = "Rome";
 writeCity(() => myCity);
 let myArray = [100, "Adam", true];
 // myArray[0] = 100;
-//myArray[1] = "Adam";
-//myArray[2] = true;
+// myArray[1] = "Adam";
+// myArray[2] = true;
