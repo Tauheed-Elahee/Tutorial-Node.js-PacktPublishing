@@ -100,3 +100,5 @@ function writeCity(f) {
 }
 writeCity(getUKCapital);
 writeCity(() => "Paris");
+let myCity = "Rome";
+writeCity(() => myCity);
