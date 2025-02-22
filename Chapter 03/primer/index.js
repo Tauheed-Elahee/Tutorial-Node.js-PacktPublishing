@@ -106,3 +106,8 @@ let myArray = [100, "Adam", true];
 // myArray[0] = 100;
 // myArray[1] = "Adam";
 // myArray[2] = true;
+let val = myArray[0];
+console.log(`Value: ${val}`);
+myArray[0] = "Tuesday";
+val = myArray[0];
+console.log(`Value: ${val}`);
