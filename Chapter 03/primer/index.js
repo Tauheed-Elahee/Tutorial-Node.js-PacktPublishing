@@ -116,3 +116,6 @@ for (let i = 0; i < myArray.length; i++) {
 }
 console.log("---");
 myArray.forEach((value, index) => console.log("Index " + index + ": " + value));
+console.log("---");
+let otherArray = [...myArray, 200, "Bob", false];
+otherArray.forEach((value, index) => console.log("Index " + index + ": " + value));
