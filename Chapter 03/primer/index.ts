@@ -144,7 +144,8 @@ let hat = {
 };
 let boots = {
     name: "Boots",
-    price: 100
+    price: 100,
+    category: "Snow Gear"
 };
 
 console.log(`Name: ${hat.name}, Price: ${hat.price}`);
