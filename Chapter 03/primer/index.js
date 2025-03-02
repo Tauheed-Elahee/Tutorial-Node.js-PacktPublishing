@@ -119,6 +119,7 @@ myArray.forEach((value, index) => console.log("Index " + index + ": " + value));
 console.log("---");
 let otherArray = [...myArray, 200, "Bob", false];
 otherArray.forEach((value, index) => console.log("Index " + index + ": " + value));
+/* Define Objects using literal syntax
 let hat = {
     name: "Hat",
     price: 100
@@ -128,6 +129,19 @@ let boots = {
     price: 100,
     category: "Snow Gear"
 };
+*/
+class Product {
+    constructor(name, price, category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+    name;
+    price;
+    category;
+}
+let hat = new Product("Hat", 100);
+let boots = new Product("Boots", 100, "Snow Gear");
 console.log(`Name: ${hat.name}, Price: ${hat.price}`);
 console.log(`Name: ${boots.name}, Price: ${boots.price}`);
 function printDetails(product) {
