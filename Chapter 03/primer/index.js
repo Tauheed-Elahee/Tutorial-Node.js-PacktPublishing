@@ -139,6 +139,14 @@ class Product {
     name;
     price;
     category;
+    printDetails() {
+        if (this.category != undefined) {
+            console.log(`Name: ${this.name}, Price: ${this.price}, ` + `Category: ${this.category}`);
+        }
+        else {
+            console.log(`Name: ${this.name}, Price: ${this.price}`);
+        }
+    }
 }
 let hat = new Product("Hat", 100);
 let boots = new Product("Boots", 100, "Snow Gear");
@@ -154,3 +162,6 @@ function printDetails(product) {
 }
 printDetails(hat);
 printDetails(boots);
+console.log("---");
+hat.printDetails();
+boots.printDetails();
