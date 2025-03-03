@@ -161,7 +161,14 @@ class Product {
     }
 }
 
+class DiscountProduct extends Product {
+    constructor(name: string, price: number, private discount: number) {
+        super(name, price - discount);
+    }
+}
+
 let hat = new Product("Hat", 100);
+let hatDiscount = new DiscountProduct("Hat", 100, 10);
 let boots = new Product("Boots", 100, "Snow Gear");
 
 console.log(`Name: ${hat.name}, Price: ${hat.price}`);
@@ -179,3 +186,10 @@ printDetails(boots);
 console.log("---");
 hat.printDetails();
 boots.printDetails();
+console.log("---");
+hatDiscount.printDetails();
+console.log("---");
+console.log(`Discounted Hat is a Product? ${hatDiscount instanceof Product}`);
+console.log(`Discounted Hat is a DiscountProduct? ${hatDiscount instanceof DiscountProduct}`);
+console.log(`Boots is a Product? ${boots instanceof Product}`);
+console.log(`Boots is a DiscountProduct? ${boots instanceof DiscountProduct}`);
