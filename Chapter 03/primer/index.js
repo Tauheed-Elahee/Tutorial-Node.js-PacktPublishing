@@ -131,14 +131,14 @@ let boots = {
 };
 */
 class Product {
+    name;
+    price;
+    category;
     constructor(name, price, category) {
         this.name = name;
         this.price = price;
         this.category = category;
     }
-    name;
-    price;
-    category;
     printDetails() {
         if (this.category != undefined) {
             console.log(`Name: ${this.name}, Price: ${this.price}, ` + `Category: ${this.category}`);
