@@ -1,3 +1,6 @@
+import { Name } from "./modules/name";
+import { WeatherLocation } from "./modules/weather";
+
 function sum(first: number, second: number | string) {
     return first + (second as any);
 }
@@ -193,3 +196,8 @@ console.log(`Discounted Hat is a Product? ${hatDiscount instanceof Product}`);
 console.log(`Discounted Hat is a DiscountProduct? ${hatDiscount instanceof DiscountProduct}`);
 console.log(`Boots is a Product? ${boots instanceof Product}`);
 console.log(`Boots is a DiscountProduct? ${boots instanceof DiscountProduct}`);
+
+let name = new Name("Tauheed", "Elahee");
+let loc = new WeatherLocation("snowing", "Ottawa");
+console.log(name.nameMessage);
+console.log(loc.weatherMessage);
