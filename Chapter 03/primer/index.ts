@@ -1,5 +1,4 @@
-import { Name } from "./modules/name";
-import { WeatherLocation } from "./modules/weather";
+import { Name, WeatherLocation } from "./modules";
 
 function sum(first: number, second: number | string) {
     return first + (second as any);

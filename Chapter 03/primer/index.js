@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const name_1 = require("./modules/name");
-const weather_1 = require("./modules/weather");
+const modules_1 = require("./modules");
 function sum(first, second) {
     return first + second;
 }
@@ -182,7 +181,7 @@ console.log(`Discounted Hat is a Product? ${hatDiscount instanceof Product}`);
 console.log(`Discounted Hat is a DiscountProduct? ${hatDiscount instanceof DiscountProduct}`);
 console.log(`Boots is a Product? ${boots instanceof Product}`);
 console.log(`Boots is a DiscountProduct? ${boots instanceof DiscountProduct}`);
-let name = new name_1.Name("Tauheed", "Elahee");
-let loc = new weather_1.WeatherLocation("snowing", "Ottawa");
+let name = new modules_1.Name("Tauheed", "Elahee");
+let loc = new modules_1.WeatherLocation("snowing", "Ottawa");
 console.log(name.nameMessage);
 console.log(loc.weatherMessage);
