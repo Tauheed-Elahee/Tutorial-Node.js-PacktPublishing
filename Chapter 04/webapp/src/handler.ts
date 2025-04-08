@@ -1,6 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 // import { readFile } from "fs";
 import { readFile } from "fs/promises";
+import { endPromise } from "./promises";
 // export const handler = (req: IncomingMessage, res: ServerResponse) => {
 //   // Use callbacks from the "fs" module
 //   // readFile("data.json", (err: Error | null, data: Buffer) => {
@@ -28,7 +29,10 @@ import { readFile } from "fs/promises";
 export const handler = async (req: IncomingMessage, res: ServerResponse) => {
   try{
     const data: Buffer = await readFile("data.json");
-    res.end(data, () => console.log("File sent"));
+    // res.end is a callback function
+    // res.end(data, () => console.log("File sent"));
+    await endPromise.bind(res)(data);
+    console.log("File sent");
   } catch (err: any) {
     console.log(`Error: ${err?.message ?? err}`);
     res.statusCode = 500;
