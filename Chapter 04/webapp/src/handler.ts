@@ -2,6 +2,7 @@ import { IncomingMessage, ServerResponse } from "http";
 // import { readFile } from "fs";
 // import { readFile } from "fs/promises";
 import { endPromise, writePromise } from "./promises";
+import { Worker } from "worker_threads";
 // export const handler = (req: IncomingMessage, res: ServerResponse) => {
 //   // Use callbacks from the "fs" module
 //   // readFile("data.json", (err: Error | null, data: Buffer) => {
@@ -57,18 +58,47 @@ export const handler = async (req: IncomingMessage, res: ServerResponse) => {
 //    await writePromise.bind(res)(msg + "\n");
 //  }
 //  await endPromise.bind(res)("Done");
-  const iterate = async (iter: number = 0) => {
-    for (let count =0; count < total; count++) {
-      count++;
+//
+//  JavaScript blocking code inside a async function promise that uses callbacks to put the next iteration into the callback queue thus interleaving work.
+//  const iterate = async (iter: number = 0) => {
+//    for (let count =0; count < total; count++) {
+//      count++;
+//    }
+//    const msg = `Request: ${request}, Iterations: ${(iter)}`;
+//    console.log(msg);
+//    await writePromise.bind(res)(msg + "\n");
+//    if (iter == iterations-1) {
+//      await endPromise.bind(res)("Done");
+//    } else {
+//      setImmediate(() => iterate(++iter));
+//    }
+//  }
+//  iterate();
+//
+//  Call the count worker defined in count_worker.ts to make a woker thread to count asynchronously
+  const worker = new Worker(__dirname + "/count_worker.js", {
+    workerData: {
+      iterations,
+      total,
+      request
     }
-    const msg = `Request: ${request}, Iterations: ${(iter)}`;
+  });
+  worker.on("message", async (iter: number) => {
+    const msg = `Request: ${request}, Iteration: ${(iter)}`;
     console.log(msg);
     await writePromise.bind(res)(msg + "\n");
-    if (iter == iterations-1) {
+  });
+  worker.on("exit", async (code: number) => {
+    if(code == 0) {
       await endPromise.bind(res)("Done");
     } else {
-      setImmediate(() => iterate(++iter));
+      res.statusCode = 500;
+      await res.end();
     }
-  }
-  iterate();
-}
+  })
+  worker.on("error", async (err: any) => {
+    console.log(err)
+    res.statusCode = 500;
+    await res.end();
+  });
+};
