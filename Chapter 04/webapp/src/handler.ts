@@ -3,7 +3,8 @@ import { IncomingMessage, ServerResponse } from "http";
 // import { readFile } from "fs/promises";
 import { endPromise, writePromise } from "./promises";
 // import { Worker } from "worker_threads";
-import { Count } from "./count_cb";
+// import { Count } from "./count_cb";
+import { Count } from "./count_promise";
 // export const handler = (req: IncomingMessage, res: ServerResponse) => {
 //   // Use callbacks from the "fs" module
 //   // readFile("data.json", (err: Error | null, data: Buffer) => {
@@ -103,18 +104,30 @@ export const handler = async (req: IncomingMessage, res: ServerResponse) => {
 //    await res.end();
 //  });
   
-  // Use callback function defined in a seperate file to create the worker thread. Now one only needs to pass the callback function called when an error occurs.
-  Count(request, iterations, total, async (err, update) => {
-    if (err !== null) {
-      console.log(err);
-      res.statusCode = 500;
-      await res.end();
-    } else if (update !== true) {
-      const msg = `Request: ${request}, Iterations: ${(update)}`;
-      console.log(msg);
-      await writePromise.bind(res)(msg + "\n");
-    } else {
-      await endPromise.bind(res)("Done");
-    }
-  });
+//   Use callback function defined in a seperate file to create the worker thread. Now one only needs to pass the callback function called when an error occurs.
+//  Count(request, iterations, total, async (err, update) => {
+//    if (err !== null) {
+//      console.log(err);
+//      res.statusCode = 500;
+//      await res.end();
+//    } else if (update !== true) {
+//      const msg = `Request: ${request}, Iterations: ${(update)}`;
+//      console.log(msg);
+//      await writePromise.bind(res)(msg + "\n");
+//    } else {
+//      await endPromise.bind(res)("Done");
+//    }
+//  });
+
+  // Use promises to wrap worker thread to be more inline with Node.js API
+  try {
+    await Count(request, iterations, total);
+    const msg = `Request: ${request}, Iterations: ${(iterations)}`;
+    await writePromise.bind(res)(msg + "\n");
+    await endPromise.bind(res)("Done");
+  } catch (err: any) {
+    console.log(err);
+    res.statusCode = 500;
+    res.end();
+  }
 };
