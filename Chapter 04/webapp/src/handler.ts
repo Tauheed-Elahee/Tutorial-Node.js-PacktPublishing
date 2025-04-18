@@ -3,7 +3,7 @@ import { IncomingMessage, ServerResponse } from "http";
 // import { readFile } from "fs/promises";
 import { endPromise, writePromise } from "./promises";
 // import { Worker } from "worker_threads";
-import { Count } from "./counter_cb";
+import { Count } from "./count_cb";
 // export const handler = (req: IncomingMessage, res: ServerResponse) => {
 //   // Use callbacks from the "fs" module
 //   // readFile("data.json", (err: Error | null, data: Buffer) => {
