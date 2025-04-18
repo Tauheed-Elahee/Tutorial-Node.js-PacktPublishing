@@ -2,7 +2,8 @@ import { IncomingMessage, ServerResponse } from "http";
 // import { readFile } from "fs";
 // import { readFile } from "fs/promises";
 import { endPromise, writePromise } from "./promises";
-import { Worker } from "worker_threads";
+// import { Worker } from "worker_threads";
+import { Count } from "./counter_cb";
 // export const handler = (req: IncomingMessage, res: ServerResponse) => {
 //   // Use callbacks from the "fs" module
 //   // readFile("data.json", (err: Error | null, data: Buffer) => {
@@ -76,29 +77,44 @@ export const handler = async (req: IncomingMessage, res: ServerResponse) => {
 //  iterate();
 //
 //  Call the count worker defined in count_worker.ts to make a woker thread to count asynchronously
-  const worker = new Worker(__dirname + "/count_worker.js", {
-    workerData: {
-      iterations,
-      total,
-      request
-    }
-  });
-  worker.on("message", async (iter: number) => {
-    const msg = `Request: ${request}, Iteration: ${(iter)}`;
-    console.log(msg);
-    await writePromise.bind(res)(msg + "\n");
-  });
-  worker.on("exit", async (code: number) => {
-    if(code == 0) {
-      await endPromise.bind(res)("Done");
-    } else {
+//  const worker = new Worker(__dirname + "/count_worker.js", {
+//    workerData: {
+//      iterations,
+//      total,
+//      request
+//    }
+//  });
+//  worker.on("message", async (iter: number) => {
+//    const msg = `Request: ${request}, Iteration: ${(iter)}`;
+//    console.log(msg);
+//    await writePromise.bind(res)(msg + "\n");
+//  });
+//  worker.on("exit", async (code: number) => {
+//    if(code == 0) {
+//      await endPromise.bind(res)("Done");
+//    } else {
+//      res.statusCode = 500;
+//      await res.end();
+//    }
+//  })
+//  worker.on("error", async (err: any) => {
+//    console.log(err)
+//    res.statusCode = 500;
+//    await res.end();
+//  });
+  
+  // Use callback function defined in a seperate file to create the worker thread. Now one only needs to pass the callback function called when an error occurs.
+  Count(request, iterations, total, async (err, update) => {
+    if (err !== null) {
+      console.log(err);
       res.statusCode = 500;
       await res.end();
+    } else if (update !== true) {
+      const msg = `Request: ${request}, Iterations: ${(update)}`;
+      console.log(msg);
+      await writePromise.bind(res)(msg + "\n");
+    } else {
+      await endPromise.bind(res)("Done");
     }
-  })
-  worker.on("error", async (err: any) => {
-    console.log(err)
-    res.statusCode = 500;
-    await res.end();
   });
 };
