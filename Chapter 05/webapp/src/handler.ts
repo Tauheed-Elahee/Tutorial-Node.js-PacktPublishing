@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
-export const handler = async  (req: IncomingMessage, res: ServerResponse) => {
+export const handler = async  (req: IncomingMessage, resp: ServerResponse) => {
 console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
 //  Print IncomingMessage properties
 //  console.log(`host: ${req.headers.host}`);
@@ -16,5 +16,21 @@ console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
     console.log(`Search param: ${key}: ${val}`);
   });
 
-  res.end("Hello, World");
+//res.end("Hello, World");
+
+//Write response head and body using methods.
+  if(req.method !== "GET" || parsedURL.pathname == "/favicon.ico") {
+    resp.writeHead(404, "Not Found");
+    resp.end();
+    return;
+  } else {
+    resp.writeHead(200, "OK");
+    if (!parsedURL.searchParams.has("keyword")) {
+      resp.write("Hello, HTTP");
+    } else {
+      resp.write(`Hello, ${parsedURL.searchParams.get("keyword")}`);
+    }
+    resp.end();
+    return;
+  }
 };
