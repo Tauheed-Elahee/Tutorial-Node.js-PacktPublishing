@@ -1,4 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { TLSSocket } from "tls";
+export const isHttps = (req: IncomingMessage) => {
+  return req.socket instanceof TLSSocket && req.socket.encrypted;
+}
 export const handler = async  (req: IncomingMessage, resp: ServerResponse) => {
 console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
 //  Print IncomingMessage properties
@@ -7,7 +11,8 @@ console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
 //  console.log(`user-agent: ${req.headers["user-agent"]}`);
 
 //  Parsing URLs
-  const parsedURL = new URL(req.url ?? "", `http://${req.headers.host}`);
+  const protocol = isHttps(req) ? "https" : "http";
+  const parsedURL = new URL(req.url ?? "", `${protocol}://${req.headers.host}`);
   console.log(`protocol: ${parsedURL.protocol}`);
   console.log(`hostname: ${parsedURL.hostname}`);
   console.log(`port: ${parsedURL.port}`);
@@ -26,7 +31,7 @@ console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
   } else {
     resp.writeHead(200, "OK");
     if (!parsedURL.searchParams.has("keyword")) {
-      resp.write("Hello, HTTP");
+      resp.write(`Hello, ${protocol.toUpperCase()}`);
     } else {
       resp.write(`Hello, ${parsedURL.searchParams.get("keyword")}`);
     }
