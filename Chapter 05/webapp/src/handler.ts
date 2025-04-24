@@ -3,6 +3,12 @@ import { TLSSocket } from "tls";
 export const isHttps = (req: IncomingMessage) : boolean => {
   return req.socket instanceof TLSSocket && req.socket.encrypted;
 }
+export const redirectionHandler = (req: IncomingMessage, resp: ServerResponse) => {
+  resp.writeHead(302, {
+    "Location": "https://localhost:5500"
+  });
+  resp.end();
+}
 export const handler = async  (req: IncomingMessage, resp: ServerResponse) => {
 console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
 //  Print IncomingMessage properties
