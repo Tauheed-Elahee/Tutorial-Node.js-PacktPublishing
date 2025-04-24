@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { TLSSocket } from "tls";
-export const isHttps = (req: IncomingMessage) => {
+export const isHttps = (req: IncomingMessage) : boolean => {
   return req.socket instanceof TLSSocket && req.socket.encrypted;
 }
 export const handler = async  (req: IncomingMessage, resp: ServerResponse) => {
