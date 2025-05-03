@@ -18,7 +18,7 @@ const httpsConfig = {
 // Create Express App
 const expressApp = express();
 expressApp.get("/favicon.ico", notFoundHandler);
-expressApp.get("/newurl", newUrlHandler);
+expressApp.get("/newurl/:message?", newUrlHandler);
 expressApp.get("*", defaultHandler);
 
 // Use Express App as the handler for the HTTPS server
