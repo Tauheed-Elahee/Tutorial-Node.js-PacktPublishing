@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { Transform } from "stream";
 
 //  Attach callback functions to events.
 //  export const readHandler = (req: IncomingMessage, resp: ServerResponse) => {
@@ -24,6 +25,16 @@ import { IncomingMessage, ServerResponse } from "http";
 
 //  Pipe data from the readable stream to a writable strem
 //  In this case it is a stream from the client then piped to a stream to the client
+//  export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
+//      req.pipe(resp);
+//  }
+
+// Use a transformer to transform the data as it is being piped from one stream to another.
 export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
-    req.pipe(resp);
+    req.pipe(createLowerTransform()).pipe(resp);
 }
+const createLowerTransform = () => new Transform({
+    transform(data, encoding, callback) {
+        callback(null, data.toString().toLowerCase());
+    }
+});
