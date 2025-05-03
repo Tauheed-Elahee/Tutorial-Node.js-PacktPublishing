@@ -47,3 +47,29 @@ console.log(`---HTTP Method: ${req.method}, URL: ${req.url}`);
     return;
   }
 };
+
+// Refactor the handler function into seperate functions with each responsible for generating responses, not handling requests.
+// The Express router will be responsible for routing requests to the appropriate reponse.
+export const notFoundHandler = (req: IncomingMessage, resp: ServerResponse) => {
+  resp.writeHead(404, "Not Found");
+  resp.end();
+}
+
+export const newUrlHandler = (req: IncomingMessage, resp: ServerResponse) => {
+  resp.writeHead(200, "OK");
+  resp.write("Hello, New URL");
+  resp.end();
+}
+
+export const defaultHandler = (req: IncomingMessage, resp: ServerResponse) => {
+  resp.writeHead(200, "OK");
+  const protocol = isHttps(req)? "https" : "http";
+  const parsedURL = new URL(req.url ?? "",
+    `${protocol}://${req.headers.url}`);
+  if (!parsedURL.searchParams.has("keyword")) {
+    resp.write(`Hello ${protocol.toUpperCase()}`);
+  } else {
+    resp.write(`Hello ${parsedURL.searchParams.get("keyword")}`);
+  }
+  resp.end();
+}
