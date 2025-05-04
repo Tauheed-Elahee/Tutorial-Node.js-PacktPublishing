@@ -30,6 +30,7 @@ import { Transform } from "stream";
 //  }
 
 // Use a transformer to transform the data as it is being piped from one stream to another.
+/*
 export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
     req.pipe(createLowerTransform()).pipe(resp);
 }
@@ -38,3 +39,26 @@ const createLowerTransform = () => new Transform({
         callback(null, data.toString().toLowerCase());
     }
 });
+*/
+
+// Use a transformer to transform the data from string or byte array to JSON object.
+export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
+    if(req.headers["content-type"] == "application/json") {
+        req.pipe(createFromJsonTransform()).on("data", (payload) => {
+            if (payload instanceof Array) {
+                resp.write(`Received an array with ${payload.length}`)
+            } else {
+                resp.write("Did not recieve an array");
+            }
+            resp.end();
+        });
+    } else {
+        req.pipe(resp);
+    }
+}
+const createFromJsonTransform = () => new Transform({
+    readableObjectMode: true,
+    transform(data, encoding, callback) {
+        callback(null, JSON.parse(data));
+    }
+})
