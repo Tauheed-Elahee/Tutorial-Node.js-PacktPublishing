@@ -10,9 +10,9 @@ const expressApp: Express = express();
 //    resp.statusCode = 404;
 //    resp.end();
 //  })
-
 //  expressApp.get("*", basicHandler);
 expressApp.post("/read", readHandler);
+
 // Use Express file response enhancements
 expressApp.get("/sendcity", (req: Request, resp: Response) => {
   resp.sendFile("city.png", {root: "static"});
