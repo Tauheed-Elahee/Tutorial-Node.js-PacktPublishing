@@ -25,7 +25,7 @@ expressApp.get("/downloadcity", (req: Request, resp: Response) => {
   resp.download("static/city.png");
 });
 expressApp.get("/json", (req: Request, resp: Response) => {
-  resp.json("{name: Bob}");
+  resp.json({name: "Bob"});
 })
 
 // Use the Express App static middleware with the .use method to route requests to serve static files
