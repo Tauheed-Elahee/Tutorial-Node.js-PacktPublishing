@@ -8,7 +8,8 @@ sendReq = async () => {
         payload.push({ id: i, message: `Payload Message: ${i}\n`});
     }
     const response = await fetch("/read", {
-        method: "POST", body: JSON.stringify(payload),
+        method: "POST",
+        body: JSON.stringify(payload),
         headers: {
             "Content-Type": "application/json"
         }
