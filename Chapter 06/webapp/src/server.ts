@@ -5,6 +5,10 @@ import { readHandler } from "./readHandler";
 
 const port = 5000;
 const expressApp: Express = express();
+
+// Enable JSON middleware for Express App to automatically encode and decode JSON
+expressApp.use(express.json());
+
 //  Use basic handler
 //  expressApp.get("/favicon.ico", (req, resp) => {
 //    resp.statusCode = 404;

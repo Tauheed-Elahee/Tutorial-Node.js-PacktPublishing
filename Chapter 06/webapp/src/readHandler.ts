@@ -1,4 +1,5 @@
 import { IncomingMessage, ServerResponse } from "http";
+import { Express, Request, Response } from "express";
 import { Transform } from "stream";
 
 //  Attach callback functions to events.
@@ -41,24 +42,39 @@ const createLowerTransform = () => new Transform({
 });
 */
 
-// Use a transformer to transform the data from string or byte array to JSON object.
-export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
+//  Use a transformer to transform the data from string or byte array to JSON object.
+//  export const readHandler = async (req: IncomingMessage, resp: ServerResponse) => {
+//      if(req.headers["content-type"] == "application/json") {
+//          req.pipe(createFromJsonTransform()).on("data", (payload) => {
+//              if (payload instanceof Array) {
+//                  resp.write(`Received an array with ${payload.length}`)
+//              } else {
+//                  resp.write("Did not recieve an array");
+//              }
+//              resp.end();
+//          });
+//      } else {
+//          req.pipe(resp);
+//      }
+//  }
+//  const createFromJsonTransform = () => new Transform({
+//      readableObjectMode: true,
+//      transform(data, encoding, callback) {
+//          callback(null, JSON.parse(data));
+//      }
+//  })
+
+//  Use express middleware instead of transformer to deal with JSON object
+export const readHandler = async (req: Request, resp: Response) => {
     if(req.headers["content-type"] == "application/json") {
-        req.pipe(createFromJsonTransform()).on("data", (payload) => {
-            if (payload instanceof Array) {
-                resp.write(`Received an array with ${payload.length}`)
-            } else {
-                resp.write("Did not recieve an array");
-            }
-            resp.end();
-        });
+        const payload = req.body;
+        if (payload instanceof Array) {
+            resp.json({arraySize: payload.length});
+        } else {
+            resp.write("Did not recieve an array");
+        }
+        resp.end();
     } else {
         req.pipe(resp);
     }
 }
-const createFromJsonTransform = () => new Transform({
-    readableObjectMode: true,
-    transform(data, encoding, callback) {
-        callback(null, JSON.parse(data));
-    }
-})
