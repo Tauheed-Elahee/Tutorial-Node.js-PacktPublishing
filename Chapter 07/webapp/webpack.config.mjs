@@ -11,6 +11,9 @@ export default {
     },
     "devServer": {
         port: 5100,
-        static: ["static", "node_modules/bootstrap/dist"]
+        static: ["static", "node_modules/bootstrap/dist"],
+        "proxy": {
+            "/read": "http://localhost:5000"
+        }
     }
 }
