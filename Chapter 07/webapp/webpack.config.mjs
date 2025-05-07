@@ -12,8 +12,12 @@ export default {
     "devServer": {
         port: 5100,
         static: ["static", "node_modules/bootstrap/dist"],
-        "proxy": {
-            "/read": "http://localhost:5000"
+        //  Proxy for webpack server to forward requests to Node.js backend
+        //  "proxy": {
+        //      "/read": "http://localhost:5000"
+        //  }
+        client: {
+            webSocketURL: "http://localhost:5000/ws"
         }
     }
 }
