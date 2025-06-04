@@ -10,6 +10,10 @@ const expressApp: Express = express();
 const proxy = httpProxy.createProxyServer({
   target: "http://localhost:5100", ws: true
 });
+expressApp.use((req, resp, next) => {
+  resp.setHeader("Content-Security-Policy", "img-src 'self'");
+  next();
+})
 expressApp.use(cors({
   origin: "http://localhost:5100"
 }));
